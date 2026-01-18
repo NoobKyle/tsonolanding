@@ -1,0 +1,10 @@
+node_modules/
+.DS_Store
+
+# Environment files (secrets)
+.env
+.env.local
+.env.*.local
+
+# Data files (user submissions)
+data/

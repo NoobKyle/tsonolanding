@@ -1,0 +1,10 @@
+# Security Policy for TSONO
+# https://securitytxt.org/
+
+Contact: mailto:security@tsono.app
+Expires: 2027-01-18T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://tsono.app/.well-known/security.txt
+
+# We appreciate responsible disclosure of security vulnerabilities.
+# Please allow us reasonable time to address issues before public disclosure.

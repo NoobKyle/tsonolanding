@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | Tsono</title>
+    <meta name="description" content="Tsono Terms of Service - Read our terms and conditions for using the Tsono motorcycle riding companion app.">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="canonical" href="https://tsono.app/terms.html">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tsono.app/terms.html">
+    <meta property="og:title" content="Terms of Service | Tsono">
+    <meta property="og:description" content="Tsono Terms of Service - Read our terms and conditions for using the Tsono motorcycle riding companion app.">
+    <meta property="og:image" content="https://tsono.app/og-image.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://tsono.app/terms.html">
+    <meta name="twitter:title" content="Terms of Service | Tsono">
+    <meta name="twitter:description" content="Tsono Terms of Service - Read our terms and conditions for using the Tsono motorcycle riding companion app.">
+    <meta name="twitter:image" content="https://tsono.app/og-image.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hot-pink: #ff4d94;
+            --hot-pink-glow: rgba(255, 77, 148, 0.5);
+            --purple: #6b21a8;
+            --purple-deep: #4c1d95;
+            --slate-dark: #0f172a;
+            --slate-darker: #020617;
+            --gray: #475569;
+            --gray-light: #94a3b8;
+            --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --gradient-primary: linear-gradient(135deg, var(--hot-pink) 0%, var(--purple) 100%);
+            --gradient-bg: linear-gradient(180deg, var(--slate-darker) 0%, var(--slate-dark) 50%, #1a0a2e 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gradient-bg);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .bg-grid {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255, 77, 148, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 77, 148, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px; pointer-events: none; z-index: 0;
+        }
+
+        .bg-gradient-orbs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: float 20s ease-in-out infinite; }
+        .orb-1 { width: 600px; height: 600px; background: var(--hot-pink); top: -200px; right: -200px; }
+        .orb-2 { width: 500px; height: 500px; background: var(--purple); bottom: -150px; left: -150px; animation-delay: -5s; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-20px, 20px) scale(0.95); } }
+
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1rem 2rem;
+            backdrop-filter: blur(20px); background: rgba(15, 23, 42, 0.8); border-bottom: 1px solid var(--glass-border);
+        }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 2px; text-decoration: none; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { color: var(--gray-light); text-decoration: none; font-weight: 500; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
+        .nav-links a:hover { color: var(--white); }
+        .nav-cta { padding: 0.75rem 1.5rem; background: var(--gradient-primary); border: none; border-radius: 50px; color: var(--white); font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; font-size: 0.9rem; box-shadow: 0 0 30px var(--hot-pink-glow); }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 0 50px var(--hot-pink-glow); }
+        .mobile-menu-btn { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 5px; }
+        .mobile-menu-btn span { width: 25px; height: 2px; background: var(--white); }
+
+        .page-hero {
+            min-height: 40vh; display: flex; align-items: center; justify-content: center;
+            padding: 10rem 2rem 4rem; position: relative; z-index: 1; text-align: center;
+        }
+        .page-hero h1 {
+            font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .page-hero .last-updated { color: var(--gray-light); font-size: 0.95rem; }
+
+        .legal-section { padding: 2rem 2rem 8rem; position: relative; z-index: 1; }
+        .legal-container {
+            max-width: 800px; margin: 0 auto; background: var(--glass-bg);
+            border: 1px solid var(--glass-border); border-radius: 32px;
+            padding: 3rem; backdrop-filter: blur(20px);
+        }
+
+        .legal-container h2 {
+            font-family: 'Orbitron', sans-serif; font-size: 1.3rem; margin: 2.5rem 0 1rem;
+            text-transform: uppercase; letter-spacing: 1px; color: var(--hot-pink);
+        }
+        .legal-container h2:first-child { margin-top: 0; }
+        .legal-container p { color: var(--gray-light); margin-bottom: 1rem; line-height: 1.8; }
+        .legal-container ul { color: var(--gray-light); margin: 1rem 0 1rem 1.5rem; line-height: 1.8; }
+        .legal-container li { margin-bottom: 0.5rem; }
+        .legal-container a { color: var(--hot-pink); text-decoration: none; }
+        .legal-container a:hover { text-decoration: underline; }
+        .legal-container strong { color: var(--white); }
+
+        footer { padding: 4rem 2rem 2rem; border-top: 1px solid var(--glass-border); position: relative; z-index: 1; }
+        .footer-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; }
+        .footer-brand .logo { margin-bottom: 1.5rem; display: inline-block; }
+        .footer-brand p { color: var(--gray-light); line-height: 1.7; max-width: 300px; }
+        .footer-links h4 { font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.5rem; }
+        .footer-links ul { list-style: none; }
+        .footer-links a { color: var(--gray-light); text-decoration: none; font-size: 0.95rem; display: block; padding: 0.5rem 0; transition: color 0.3s ease; }
+        .footer-links a:hover { color: var(--hot-pink); }
+        .footer-bottom { max-width: 1400px; margin: 4rem auto 0; padding-top: 2rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; color: var(--gray); font-size: 0.9rem; }
+        .social-links { display: flex; gap: 1rem; }
+        .social-links a { width: 40px; height: 40px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gray-light); text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { border-color: var(--hot-pink); color: var(--hot-pink); transform: translateY(-3px); }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: flex; }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(15, 23, 42, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--glass-border);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+            .nav-links.active {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            .mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+            .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+            .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+            .page-hero { padding: 7rem 1.5rem 3rem; min-height: 35vh; }
+            .page-hero h1 { font-size: 1.8rem; letter-spacing: 1px; }
+
+            .legal-container { padding: 2rem 1.5rem; }
+            .legal-container h2 { font-size: 1.1rem; }
+
+            .footer-container { grid-template-columns: 1fr; gap: 2rem; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">TSONO</a>
+            <ul class="nav-links">
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#how-it-works">How It Works</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <a href="https://tsono.app" class="nav-cta">Start Riding</a>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div>
+            <h1>Terms of Service</h1>
+            <p class="last-updated">Last Updated: January 2025</p>
+        </div>
+    </section>
+
+    <section class="legal-section">
+        <div class="legal-container">
+            <h2>Acceptance of Terms</h2>
+            <p>By accessing or using Tsono ("the Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.</p>
+            <p>These Terms apply to all users, including those who create rides, join rides, or access the Service in any way. We may update these Terms from time to time. Continued use of the Service after changes constitutes acceptance of the updated Terms.</p>
+
+            <h2>Description of Service</h2>
+            <p>Tsono is a real-time location sharing and communication platform designed for motorcycle riders. The Service allows users to:</p>
+            <ul>
+                <li>Create and join group rides</li>
+                <li>Share real-time location with ride participants</li>
+                <li>Send signals and alerts to other riders</li>
+                <li>View other riders on a live map</li>
+            </ul>
+            <p>Tsono is provided as a Progressive Web App (PWA) accessible through web browsers on compatible devices.</p>
+
+            <h2>User Accounts</h2>
+            <p><strong>Registration:</strong> Some features may require account registration. You agree to provide accurate information and keep it updated.</p>
+            <p><strong>Account Security:</strong> You are responsible for maintaining the confidentiality of your account credentials and for all activities under your account.</p>
+            <p><strong>Guest Access:</strong> The Service may allow limited guest access for joining rides without a full account. Guests are still bound by these Terms.</p>
+
+            <h2>Acceptable Use</h2>
+            <p>You agree NOT to:</p>
+            <ul>
+                <li>Use the Service while operating a vehicle in a manner that distracts from safe driving</li>
+                <li>Use the Service for any illegal purpose or to violate any laws</li>
+                <li>Harass, threaten, or harm other users</li>
+                <li>Attempt to gain unauthorized access to the Service or other users' accounts</li>
+                <li>Transmit malware, viruses, or other harmful code</li>
+                <li>Use automated systems to access the Service without permission</li>
+                <li>Share your location with malicious intent or to stalk/track others without consent</li>
+                <li>Misuse the signal system to send false or misleading alerts</li>
+            </ul>
+
+            <h2>Safety Disclaimer</h2>
+            <p><strong>IMPORTANT:</strong> Tsono is a communication and coordination tool, NOT a navigation or safety device. You acknowledge that:</p>
+            <ul>
+                <li>You are solely responsible for your safety while riding</li>
+                <li>The Service should not be used in any way that distracts from safe vehicle operation</li>
+                <li>Location data may be delayed, inaccurate, or unavailable due to GPS, network, or other technical limitations</li>
+                <li>Signals from other riders are informational and may not reflect actual road conditions</li>
+                <li>You should always follow traffic laws and safe riding practices regardless of information shown in the app</li>
+            </ul>
+            <p><strong>Tsono is not a substitute for proper riding gear, training, or situational awareness.</strong></p>
+
+            <h2>Premium Subscription</h2>
+            <p>Tsono offers a Premium subscription with additional features. By subscribing, you agree that:</p>
+            <ul>
+                <li>Subscription fees are billed on a recurring monthly basis</li>
+                <li>You can cancel at any time; access continues until the end of the billing period</li>
+                <li>We may change pricing with 30 days notice to existing subscribers</li>
+                <li>Refunds are provided at our discretion and in accordance with applicable law</li>
+            </ul>
+
+            <h2>Intellectual Property</h2>
+            <p>The Service, including its design, features, code, and content, is owned by Tsono and protected by copyright and other intellectual property laws. You may not:</p>
+            <ul>
+                <li>Copy, modify, or distribute the Service or its components</li>
+                <li>Reverse engineer or decompile the Service</li>
+                <li>Use our trademarks without written permission</li>
+            </ul>
+
+            <h2>User Content</h2>
+            <p>You retain ownership of content you create (ride names, messages, etc.). By using the Service, you grant Tsono a license to use, store, and transmit this content as necessary to provide the Service.</p>
+
+            <h2>Disclaimer of Warranties</h2>
+            <p>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. WE DO NOT WARRANT THAT THE SERVICE WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE.</p>
+            <p>We specifically disclaim any warranty regarding:</p>
+            <ul>
+                <li>Accuracy or reliability of location data</li>
+                <li>Availability of the Service in all areas or at all times</li>
+                <li>Fitness for any particular purpose</li>
+            </ul>
+
+            <h2>Limitation of Liability</h2>
+            <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, TSONO AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR:</p>
+            <ul>
+                <li>Any indirect, incidental, special, consequential, or punitive damages</li>
+                <li>Any loss or damage arising from your use of the Service while operating a vehicle</li>
+                <li>Any personal injury or property damage related to your use of the Service</li>
+                <li>Any reliance on information or signals provided through the Service</li>
+            </ul>
+            <p>Our total liability for any claim shall not exceed the amount you paid for the Service in the 12 months preceding the claim.</p>
+
+            <h2>Indemnification</h2>
+            <p>You agree to indemnify and hold harmless Tsono and its affiliates from any claims, damages, or expenses (including legal fees) arising from your use of the Service, violation of these Terms, or infringement of any third-party rights.</p>
+
+            <h2>Termination</h2>
+            <p>We may suspend or terminate your access to the Service at any time for violation of these Terms or for any other reason at our discretion. You may stop using the Service at any time.</p>
+
+            <h2>Governing Law</h2>
+            <p>These Terms are governed by the laws of the State of Texas, without regard to conflict of law principles. Any disputes shall be resolved in the courts located in Dallas County, Texas.</p>
+
+            <h2>Changes to Terms</h2>
+            <p>We reserve the right to modify these Terms at any time. We will provide notice of significant changes through the Service or via email. Continued use after changes constitutes acceptance.</p>
+
+            <h2>Contact</h2>
+            <p>For questions about these Terms, contact us at:</p>
+            <p>Email: <a href="mailto:legal@tsono.app">legal@tsono.app</a><br>
+            General: <a href="mailto:hello@tsono.app">hello@tsono.app</a></p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">TSONO</a>
+                <p>Your crew, your ride, your way. Tsono keeps your group connected in real-time.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="index.html#how-it-works">How It Works</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="careers.html">Investors</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Tsono. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        mobileMenuBtn?.addEventListener('click', () => {
+            navLinks?.classList.toggle('active');
+            mobileMenuBtn?.classList.toggle('active');
+        });
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks?.classList.remove('active');
+                mobileMenuBtn?.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

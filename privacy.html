@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Tsono</title>
+    <meta name="description" content="Tsono Privacy Policy - Learn how we collect, use, and protect your data. Your privacy matters to us.">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="canonical" href="https://tsono.app/privacy.html">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tsono.app/privacy.html">
+    <meta property="og:title" content="Privacy Policy | Tsono">
+    <meta property="og:description" content="Tsono Privacy Policy - Learn how we collect, use, and protect your data. Your privacy matters to us.">
+    <meta property="og:image" content="https://tsono.app/og-image.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://tsono.app/privacy.html">
+    <meta name="twitter:title" content="Privacy Policy | Tsono">
+    <meta name="twitter:description" content="Tsono Privacy Policy - Learn how we collect, use, and protect your data. Your privacy matters to us.">
+    <meta name="twitter:image" content="https://tsono.app/og-image.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hot-pink: #ff4d94;
+            --hot-pink-glow: rgba(255, 77, 148, 0.5);
+            --purple: #6b21a8;
+            --purple-deep: #4c1d95;
+            --slate-dark: #0f172a;
+            --slate-darker: #020617;
+            --gray: #475569;
+            --gray-light: #94a3b8;
+            --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --gradient-primary: linear-gradient(135deg, var(--hot-pink) 0%, var(--purple) 100%);
+            --gradient-bg: linear-gradient(180deg, var(--slate-darker) 0%, var(--slate-dark) 50%, #1a0a2e 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gradient-bg);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .bg-grid {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255, 77, 148, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 77, 148, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px; pointer-events: none; z-index: 0;
+        }
+
+        .bg-gradient-orbs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: float 20s ease-in-out infinite; }
+        .orb-1 { width: 600px; height: 600px; background: var(--hot-pink); top: -200px; right: -200px; }
+        .orb-2 { width: 500px; height: 500px; background: var(--purple); bottom: -150px; left: -150px; animation-delay: -5s; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-20px, 20px) scale(0.95); } }
+
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1rem 2rem;
+            backdrop-filter: blur(20px); background: rgba(15, 23, 42, 0.8); border-bottom: 1px solid var(--glass-border);
+        }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 2px; text-decoration: none; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { color: var(--gray-light); text-decoration: none; font-weight: 500; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
+        .nav-links a:hover { color: var(--white); }
+        .nav-cta { padding: 0.75rem 1.5rem; background: var(--gradient-primary); border: none; border-radius: 50px; color: var(--white); font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; font-size: 0.9rem; box-shadow: 0 0 30px var(--hot-pink-glow); }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 0 50px var(--hot-pink-glow); }
+        .mobile-menu-btn { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 5px; }
+        .mobile-menu-btn span { width: 25px; height: 2px; background: var(--white); }
+
+        .page-hero {
+            min-height: 40vh; display: flex; align-items: center; justify-content: center;
+            padding: 10rem 2rem 4rem; position: relative; z-index: 1; text-align: center;
+        }
+        .page-hero h1 {
+            font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 2px;
+        }
+        .page-hero .last-updated { color: var(--gray-light); font-size: 0.95rem; }
+
+        .legal-section { padding: 2rem 2rem 8rem; position: relative; z-index: 1; }
+        .legal-container {
+            max-width: 800px; margin: 0 auto; background: var(--glass-bg);
+            border: 1px solid var(--glass-border); border-radius: 32px;
+            padding: 3rem; backdrop-filter: blur(20px);
+        }
+
+        .legal-container h2 {
+            font-family: 'Orbitron', sans-serif; font-size: 1.3rem; margin: 2.5rem 0 1rem;
+            text-transform: uppercase; letter-spacing: 1px; color: var(--hot-pink);
+        }
+        .legal-container h2:first-child { margin-top: 0; }
+        .legal-container p { color: var(--gray-light); margin-bottom: 1rem; line-height: 1.8; }
+        .legal-container ul { color: var(--gray-light); margin: 1rem 0 1rem 1.5rem; line-height: 1.8; }
+        .legal-container li { margin-bottom: 0.5rem; }
+        .legal-container a { color: var(--hot-pink); text-decoration: none; }
+        .legal-container a:hover { text-decoration: underline; }
+        .legal-container strong { color: var(--white); }
+
+        footer { padding: 4rem 2rem 2rem; border-top: 1px solid var(--glass-border); position: relative; z-index: 1; }
+        .footer-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; }
+        .footer-brand .logo { margin-bottom: 1.5rem; display: inline-block; }
+        .footer-brand p { color: var(--gray-light); line-height: 1.7; max-width: 300px; }
+        .footer-links h4 { font-family: 'Orbitron', sans-serif; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1.5rem; }
+        .footer-links ul { list-style: none; }
+        .footer-links a { color: var(--gray-light); text-decoration: none; font-size: 0.95rem; display: block; padding: 0.5rem 0; transition: color 0.3s ease; }
+        .footer-links a:hover { color: var(--hot-pink); }
+        .footer-bottom { max-width: 1400px; margin: 4rem auto 0; padding-top: 2rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; color: var(--gray); font-size: 0.9rem; }
+        .social-links { display: flex; gap: 1rem; }
+        .social-links a { width: 40px; height: 40px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gray-light); text-decoration: none; transition: all 0.3s ease; }
+        .social-links a:hover { border-color: var(--hot-pink); color: var(--hot-pink); transform: translateY(-3px); }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: flex; }
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(15, 23, 42, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--glass-border);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+            .nav-links.active {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            .mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+            .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+            .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+            .page-hero { padding: 7rem 1.5rem 3rem; min-height: 35vh; }
+            .page-hero h1 { font-size: 1.8rem; letter-spacing: 1px; }
+
+            .legal-container { padding: 2rem 1.5rem; }
+            .legal-container h2 { font-size: 1.1rem; }
+
+            .footer-container { grid-template-columns: 1fr; gap: 2rem; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-gradient-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">TSONO</a>
+            <ul class="nav-links">
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#how-it-works">How It Works</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            <a href="https://tsono.app" class="nav-cta">Start Riding</a>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div>
+            <h1>Privacy Policy</h1>
+            <p class="last-updated">Last Updated: January 2025</p>
+        </div>
+    </section>
+
+    <section class="legal-section">
+        <div class="legal-container">
+            <h2>Introduction</h2>
+            <p>At Tsono ("we," "our," or "us"), we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our motorcycle riding companion application and related services.</p>
+            <p><strong>Our core principle: Your location is yours.</strong> We only collect location data when you actively choose to share it during a ride, and we never track you when you're not using Tsono.</p>
+
+            <h2>Information We Collect</h2>
+            <p><strong>Information You Provide:</strong></p>
+            <ul>
+                <li>Account information (name, email address, optional profile photo)</li>
+                <li>Ride names and destinations you create</li>
+                <li>Messages and signals you send during rides</li>
+                <li>Feedback and communications you send to us</li>
+            </ul>
+            <p><strong>Information Collected Automatically:</strong></p>
+            <ul>
+                <li>Location data (GPS coordinates) — <strong>only when you are actively in a ride</strong></li>
+                <li>Device information (device type, operating system, browser type)</li>
+                <li>Usage data (features used, ride duration, signal types sent)</li>
+                <li>Log data (IP address, access times, pages viewed)</li>
+            </ul>
+
+            <h2>How We Use Your Information</h2>
+            <p>We use the information we collect to:</p>
+            <ul>
+                <li>Provide real-time location sharing with your riding group</li>
+                <li>Enable signal communication between riders</li>
+                <li>Improve and optimize our services</li>
+                <li>Send you service-related notifications</li>
+                <li>Respond to your inquiries and support requests</li>
+                <li>Detect and prevent fraud or abuse</li>
+            </ul>
+
+            <h2>Location Data</h2>
+            <p>Location data is central to Tsono's functionality. Here's how we handle it:</p>
+            <ul>
+                <li><strong>Active Sharing Only:</strong> We only collect your location when you join or create a ride. When you leave a ride or close the app, location tracking stops immediately.</li>
+                <li><strong>Shared with Your Group:</strong> Your location is shared in real-time with other riders in your current ride group—no one else.</li>
+                <li><strong>Retention:</strong> Real-time location data is not permanently stored. Ride summaries (start/end points, duration) may be retained for Premium users who opt into ride history.</li>
+                <li><strong>No Background Tracking:</strong> We do not track your location in the background when you're not actively using Tsono.</li>
+            </ul>
+
+            <h2>Information Sharing</h2>
+            <p>We do not sell your personal information. We may share your information only in these circumstances:</p>
+            <ul>
+                <li><strong>With Your Ride Group:</strong> Your location and signals are shared with riders who are part of your current ride.</li>
+                <li><strong>Service Providers:</strong> We work with third-party services (hosting, analytics) who process data on our behalf under strict confidentiality agreements.</li>
+                <li><strong>Legal Requirements:</strong> We may disclose information if required by law or to protect rights, safety, or property.</li>
+                <li><strong>Business Transfers:</strong> In the event of a merger or acquisition, your information may be transferred to the new entity.</li>
+            </ul>
+
+            <h2>Data Security</h2>
+            <p>We implement industry-standard security measures to protect your information:</p>
+            <ul>
+                <li>All data transmitted over HTTPS encryption</li>
+                <li>JWT-based authentication</li>
+                <li>Regular security audits and updates</li>
+                <li>Secure WebSocket connections for real-time data</li>
+            </ul>
+            <p>However, no method of transmission over the internet is 100% secure. We cannot guarantee absolute security.</p>
+
+            <h2>Your Rights and Choices</h2>
+            <p>You have the right to:</p>
+            <ul>
+                <li><strong>Access:</strong> Request a copy of the personal information we hold about you</li>
+                <li><strong>Correction:</strong> Update or correct inaccurate information</li>
+                <li><strong>Deletion:</strong> Request deletion of your account and associated data</li>
+                <li><strong>Opt-Out:</strong> Leave any ride at any time to stop location sharing</li>
+                <li><strong>Withdraw Consent:</strong> Revoke location permissions through your device settings</li>
+            </ul>
+            <p>To exercise these rights, contact us at <a href="mailto:privacy@tsono.app">privacy@tsono.app</a>.</p>
+
+            <h2>Cookies and Tracking</h2>
+            <p>Tsono uses minimal cookies and similar technologies for:</p>
+            <ul>
+                <li>Authentication (keeping you logged in)</li>
+                <li>Preferences (remembering your settings)</li>
+                <li>Analytics (understanding how our service is used)</li>
+            </ul>
+            <p>You can control cookies through your browser settings, though this may affect functionality.</p>
+
+            <h2>Children's Privacy</h2>
+            <p>Tsono is not intended for users under 18 years of age. We do not knowingly collect personal information from children. If we learn we have collected such information, we will delete it promptly.</p>
+
+            <h2>Changes to This Policy</h2>
+            <p>We may update this Privacy Policy from time to time. We will notify you of significant changes by posting the new policy on this page and updating the "Last Updated" date. Continued use of Tsono after changes constitutes acceptance of the updated policy.</p>
+
+            <h2>Contact Us</h2>
+            <p>If you have questions about this Privacy Policy or our data practices, please contact us:</p>
+            <p>Email: <a href="mailto:privacy@tsono.app">privacy@tsono.app</a><br>
+            General: <a href="mailto:hello@tsono.app">hello@tsono.app</a></p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">TSONO</a>
+                <p>Your crew, your ride, your way. Tsono keeps your group connected in real-time.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="index.html#how-it-works">How It Works</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="careers.html">Investors</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Tsono. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        mobileMenuBtn?.addEventListener('click', () => {
+            navLinks?.classList.toggle('active');
+            mobileMenuBtn?.classList.toggle('active');
+        });
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks?.classList.remove('active');
+                mobileMenuBtn?.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Tsono Demo - Ride Together</title>
+  <meta name="description" content="Try the Tsono demo. See how the real-time riding companion app keeps your crew connected on every ride.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="canonical" href="https://tsono.app/demo.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tsono.app/demo.html">
+  <meta property="og:title" content="Tsono Demo - Ride Together">
+  <meta property="og:description" content="Try the Tsono demo. See how the real-time riding companion app keeps your crew connected on every ride.">
+  <meta property="og:image" content="https://tsono.app/og-image.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://tsono.app/demo.html">
+  <meta name="twitter:title" content="Tsono Demo - Ride Together">
+  <meta name="twitter:description" content="Try the Tsono demo. See how the real-time riding companion app keeps your crew connected on every ride.">
+  <meta name="twitter:image" content="https://tsono.app/og-image.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========================================
+       CSS VARIABLES - DESIGN SYSTEM
+    ======================================== */
+    :root {
+      /* Primary */
+      --primary: #ff4d94;
+      --primary-dark: #ff0f75;
+      --primary-light: #ffd0e4;
+
+      /* Secondary */
+      --secondary: #6b21a8;
+      --accent: #3b82f6;
+
+      /* Neutrals - Dark Mode (default) */
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --bg-panel: rgba(30, 41, 59, 0.95);
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --border: #334155;
+
+      /* Neutrals - Light Mode */
+      --bg-light: #f8fafc;
+      --bg-card-light: #ffffff;
+      --text-dark: #0f172a;
+
+      /* Signal Colors */
+      --signal-critical: #dc2626;
+      --signal-high: #f97316;
+      --signal-warning: #eab308;
+      --signal-success: #22c55e;
+      --signal-info: #3b82f6;
+
+      /* Shadows */
+      --shadow-card: 0 6px 24px rgba(15, 23, 42, 0.08);
+      --shadow-panel: 0 -4px 20px rgba(0, 0, 0, 0.15);
+      --shadow-float: 0 6px 18px rgba(15, 23, 42, 0.15);
+      --shadow-glow: 0 0 20px rgba(255, 77, 148, 0.3);
+
+      /* Gradients */
+      --gradient-brand: linear-gradient(135deg, #2d32c8 0%, #6b21a8 100%);
+      --gradient-primary: linear-gradient(135deg, #ff4d94 0%, #ff0f75 100%);
+      --gradient-dark: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    }
+
+    /* Light mode overrides */
+    .light-mode {
+      --bg-dark: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-panel: rgba(255, 255, 255, 0.95);
+      --text-primary: #0f172a;
+      --text-secondary: #64748b;
+      --border: #e2e8f0;
+    }
+
+    /* ========================================
+       BASE STYLES
+    ======================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+
+    #app {
+      width: 100%;
+      max-width: 390px;
+      height: 100vh;
+      max-height: 844px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      background: var(--bg-dark);
+    }
+
+    /* For embedding - transparent background, centered */
+    @media (min-width: 500px) {
+      body {
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 0;
+      }
+      #app {
+        border-radius: 40px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        border: 8px solid #2d2d44;
+      }
+    }
+
+    /* Standalone preview mode (add ?standalone to URL) */
+    body.standalone {
+      background: #1a1a2e !important;
+      padding: 20px !important;
+    }
+
+    /* Typography */
+    .heading-xl { font-size: 28px; font-weight: 700; }
+    .heading-lg { font-size: 22px; font-weight: 600; }
+    .heading-md { font-size: 18px; font-weight: 600; }
+    .text-md { font-size: 15px; }
+    .text-sm { font-size: 13px; }
+    .text-xs { font-size: 11px; }
+    .mono { font-family: 'SF Mono', 'Fira Code', monospace; }
+
+    /* ========================================
+       SCREEN MANAGEMENT
+    ======================================== */
+    .screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+      opacity: 1;
+      animation: page-enter 0.3s ease;
+    }
+
+    @keyframes page-enter {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes page-exit {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    /* ========================================
+       COMMON COMPONENTS
+    ======================================== */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      padding: 0 24px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s, opacity 0.2s;
+      width: 100%;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .input {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(255, 77, 148, 0.1);
+    }
+
+    .input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    .label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Toast */
+    .toast {
+      position: absolute;
+      bottom: 280px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: var(--shadow-float);
+      opacity: 0;
+      transition: all 0.25s ease;
+      z-index: 10000;
+      pointer-events: none;
+      border: 1px solid var(--border);
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ========================================
+       SPLASH SCREEN
+    ======================================== */
+    #splash {
+      background: var(--gradient-brand);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .splash-content {
+      text-align: center;
+    }
+
+    .splash-logo {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: 8px;
+      color: white;
+      animation: logo-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes logo-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.02); }
+    }
+
+    .loading-dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 32px;
+    }
+
+    .loading-dots .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: white;
+      animation: loading-dot 1.4s ease-in-out infinite;
+    }
+
+    .loading-dots .dot:nth-child(1) { animation-delay: 0s; }
+    .loading-dots .dot:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dots .dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes loading-dot {
+      0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+      40% { opacity: 1; transform: scale(1); }
+    }
+
+    .splash-tagline {
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+      margin-top: 24px;
+    }
+
+    /* ========================================
+       LOGIN SCREEN
+    ======================================== */
+    #login {
+      background: var(--gradient-brand);
+    }
+
+    .login-header {
+      flex: 0 0 35%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .login-header .logo {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 6px;
+      color: white;
+    }
+
+    .login-header .tagline {
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .login-card {
+      flex: 1;
+      background: var(--bg-dark);
+      border-radius: 24px 24px 0 0;
+      padding: 32px 24px;
+      animation: slide-up 0.5s ease;
+    }
+
+    @keyframes slide-up {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .login-links {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .login-links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .login-links p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-top: 12px;
+    }
+
+    /* ========================================
+       DASHBOARD
+    ======================================== */
+    #dashboard {
+      background: var(--bg-dark);
+    }
+
+    .top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .light-mode .top-bar {
+      background: rgba(248, 250, 252, 0.85);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .location-icon {
+      font-size: 14px;
+    }
+
+    .menu-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: none;
+      border-radius: 10px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .menu-btn:active {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .light-mode .menu-btn {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .light-mode .menu-btn:active {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    /* Map Container */
+    .map-container {
+      flex: 1;
+      position: relative;
+      margin-top: 56px;
+      background: #171f2b;
+      overflow: hidden;
+    }
+
+    .light-mode .map-container {
+      background: #e4eaf3;
+    }
+
+    /* Road network SVG */
+    .road-network {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .road-main {
+      stroke: #2a3545;
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .road-secondary {
+      stroke: #232c3a;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .light-mode .road-main {
+      stroke: #ccd5e3;
+    }
+
+    .light-mode .road-secondary {
+      stroke: #d8e0eb;
+    }
+
+    /* User Marker */
+    .user-marker {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48px;
+      height: 48px;
+    }
+
+    .pulse-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: rgba(255, 77, 148, 0.3);
+      animation: pulse 2s ease-out infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.8); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+
+    .user-arrow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--primary);
+      font-size: 24px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    /* Rider Markers */
+    .rider-marker {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+
+    .rider-marker:active {
+      transform: scale(1.15);
+    }
+
+    .rider-marker .dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--secondary);
+      border: 2px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    /* Recenter Button */
+    .recenter-btn {
+      position: absolute;
+      right: 12px;
+      bottom: 275px;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: var(--shadow-float);
+      transition: transform 0.2s;
+    }
+
+    .recenter-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Bottom Panel */
+    .bottom-panel {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 20px 20px 0 0;
+      padding: 0 16px 60px;
+      box-shadow: var(--shadow-panel);
+      max-height: 260px;
+      overflow: hidden;
+    }
+
+    /* Drag Handle */
+    .panel-handle {
+      display: flex;
+      justify-content: center;
+      padding: 10px 0 8px;
+    }
+
+    .handle-bar {
+      width: 32px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+    }
+
+    /* Action Buttons Row */
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .action-btn {
+      flex: 1;
+      height: 38px;
+      font-size: 13px;
+      border-radius: 10px;
+    }
+
+    .panel-content {
+      padding: 0;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .panel-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .rider-count {
+      color: var(--signal-success);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* Rider List */
+    .rider-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .rider-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background: var(--bg-card);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.2s;
+    }
+
+    .rider-item:active {
+      transform: scale(0.98);
+      background: var(--border);
+    }
+
+    .rider-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .rider-name {
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    .rider-distance {
+      color: var(--text-secondary);
+      font-size: 11px;
+    }
+
+    .rider-action {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    /* Rider Info Panel */
+    .rider-detail {
+      padding: 0;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 16px;
+      background: none;
+      border: none;
+    }
+
+    .rider-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .rider-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .rider-details h3 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .rider-details .handle {
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    .rider-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Destination Panel */
+    .search-input {
+      width: 100%;
+      padding: 12px 16px 12px 40px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text-primary);
+      font-size: 14px;
+    }
+
+    .search-wrapper {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .search-wrapper::before {
+      content: '🔍';
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+    }
+
+    .recent-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .recent-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .recent-item:active {
+      background: var(--bg-card);
+    }
+
+    /* ========================================
+       MENU DROPDOWN
+    ======================================== */
+    .menu-dropdown {
+      position: absolute;
+      top: 60px;
+      right: 16px;
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 8px;
+      min-width: 160px;
+      box-shadow: var(--shadow-float);
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      transition: all 0.2s ease;
+      z-index: 1000;
+    }
+
+    .menu-dropdown.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .menu-item {
+      display: block;
+      width: 100%;
+      padding: 12px 16px;
+      text-align: left;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .menu-item:hover {
+      background: rgba(255,255,255,0.05);
+    }
+
+    .menu-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 8px 0;
+    }
+
+    /* ========================================
+       CREATE RIDE SCREEN
+    ======================================== */
+    #create-ride {
+      background: var(--bg-dark);
+    }
+
+    .screen-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .back-btn {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .screen-header h1 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .screen-body {
+      flex: 1;
+      padding: 24px 20px;
+      overflow-y: auto;
+    }
+
+    .screen-intro {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .form-row {
+      margin-bottom: 20px;
+    }
+
+    .counter-input {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .counter-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      font-size: 24px;
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .counter-btn:active {
+      background: var(--border);
+    }
+
+    .counter-value {
+      font-size: 32px;
+      font-weight: 600;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    textarea.input {
+      height: 80px;
+      padding: 12px 16px;
+      resize: none;
+    }
+
+    .screen-footer {
+      padding: 16px 20px 32px;
+    }
+
+    /* ========================================
+       RIDE CREATED SUCCESS
+    ======================================== */
+    #ride-created {
+      background: var(--bg-dark);
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--signal-success);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      margin-bottom: 24px;
+      animation: success-pop 0.5s ease;
+    }
+
+    @keyframes success-pop {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .success-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .success-ride-name {
+      color: var(--text-secondary);
+      font-size: 16px;
+      margin-bottom: 24px;
+    }
+
+    .qr-placeholder {
+      width: 140px;
+      height: 140px;
+      background: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      padding: 12px;
+    }
+
+    .qr-pattern {
+      width: 100%;
+      height: 100%;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          #000 0px,
+          #000 8px,
+          #fff 8px,
+          #fff 16px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          #000 0px,
+          #000 8px,
+          #fff 8px,
+          #fff 16px
+        );
+      background-blend-mode: difference;
+    }
+
+    .join-code-section {
+      margin-bottom: 24px;
+    }
+
+    .join-code-label {
+      color: var(--text-secondary);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .join-code-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: var(--bg-card);
+      padding: 16px 24px;
+      border-radius: 12px;
+    }
+
+    .join-code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+
+    .copy-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .success-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .success-meta {
+      color: var(--text-secondary);
+      font-size: 13px;
+      margin-top: 24px;
+    }
+
+    /* ========================================
+       JOIN RIDE SCREEN
+    ======================================== */
+    #join-ride {
+      background: var(--bg-dark);
+    }
+
+    .code-input-wrapper {
+      margin-bottom: 8px;
+    }
+
+    .code-input {
+      text-align: center;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 24px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .char-count {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 12px;
+      margin-bottom: 24px;
+    }
+
+    .tip-card {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 24px;
+    }
+
+    .tip-card p {
+      color: var(--text-secondary);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* ========================================
+       ACTIVE RIDE
+    ======================================== */
+    .ride-panel {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 20px 20px 0 0;
+      box-shadow: var(--shadow-panel);
+      max-height: 80px;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .ride-panel.expanded {
+      max-height: 75vh;
+      overflow-y: auto;
+    }
+
+    .ride-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      cursor: pointer;
+    }
+
+    .ride-title-section h2 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .ride-meta {
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    .expand-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .ride-panel.expanded .expand-btn {
+      transform: rotate(180deg);
+    }
+
+    .ride-content {
+      padding: 0 20px 24px;
+    }
+
+    .ride-section {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ride-section:last-child {
+      border-bottom: none;
+    }
+
+    .ride-code-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ride-code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-weight: 500;
+    }
+
+    .members-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .member-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .host-badge {
+      background: var(--primary);
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .destination-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+    }
+
+    /* Signal Grid */
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .signal-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      border-radius: 12px;
+      min-height: 72px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s, background 0.2s;
+    }
+
+    .signal-btn:active {
+      transform: scale(0.95);
+    }
+
+    .signal-btn .icon {
+      font-size: 28px;
+      margin-bottom: 4px;
+    }
+
+    .signal-btn .signal-label {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .signal-stop { background: rgba(220, 38, 38, 0.15); color: var(--signal-critical); }
+    .signal-hazard { background: rgba(249, 115, 22, 0.15); color: var(--signal-high); }
+    .signal-help { background: rgba(220, 38, 38, 0.2); color: var(--signal-critical); }
+    .signal-fuel { background: rgba(234, 179, 8, 0.1); color: var(--signal-warning); }
+    .signal-regroup { background: rgba(59, 130, 246, 0.1); color: var(--signal-info); }
+    .signal-pullover { background: rgba(107, 33, 168, 0.15); color: var(--secondary); }
+    .signal-slow { background: rgba(234, 179, 8, 0.1); color: var(--signal-warning); }
+    .signal-speed { background: rgba(34, 197, 94, 0.1); color: var(--signal-success); }
+    .signal-ok { background: rgba(34, 197, 94, 0.15); color: var(--signal-success); }
+
+    .end-ride-btn {
+      margin-top: 16px;
+      background: rgba(220, 38, 38, 0.1);
+      color: var(--signal-critical);
+      border: 1px solid rgba(220, 38, 38, 0.3);
+    }
+
+    /* ========================================
+       SIGNAL FAB
+    ======================================== */
+    .signal-fab-container {
+      position: absolute;
+      left: 12px;
+      bottom: 100px;
+      z-index: 500;
+      display: none;
+    }
+
+    .signal-fab-container.visible {
+      display: block;
+    }
+
+    .fab-main {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      border: none;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: var(--shadow-glow);
+      transition: transform 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fab-main.open {
+      transform: rotate(45deg);
+    }
+
+    .fab-sub-buttons {
+      position: absolute;
+      bottom: 72px;
+      left: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .fab-sub {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: var(--shadow-float);
+      transform: scale(0);
+      opacity: 0;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fab-sub.visible {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .fab-sub:nth-child(1) { transition-delay: 0ms; background: var(--signal-critical); color: white; }
+    .fab-sub:nth-child(2) { transition-delay: 50ms; background: var(--signal-high); color: white; }
+    .fab-sub:nth-child(3) { transition-delay: 100ms; background: var(--signal-critical); color: white; }
+
+    /* ========================================
+       SIGNAL NOTIFICATION
+    ======================================== */
+    .signal-notification {
+      position: absolute;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      width: 90%;
+      max-width: 360px;
+      background: var(--bg-card);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-float);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      z-index: 9999;
+    }
+
+    .signal-notification.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    .signal-notif-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+    }
+
+    .signal-notif-header.hazard { background: var(--signal-high); }
+    .signal-notif-header.warning { background: var(--signal-high); }
+    .signal-notif-header.stop { background: var(--signal-critical); }
+    .signal-notif-header.critical { background: var(--signal-critical); }
+    .signal-notif-header.help { background: var(--signal-critical); }
+    .signal-notif-header.info { background: var(--signal-info); }
+    .signal-notif-header.success { background: var(--signal-success); }
+
+    .signal-notif-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      font-weight: 600;
+    }
+
+    .countdown-timer {
+      position: relative;
+      width: 36px;
+      height: 36px;
+    }
+
+    .countdown-timer svg {
+      transform: rotate(-90deg);
+    }
+
+    .countdown-timer .bg {
+      fill: none;
+      stroke: rgba(255,255,255,0.3);
+      stroke-width: 3;
+    }
+
+    .countdown-timer .progress {
+      fill: none;
+      stroke: white;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 1s linear;
+    }
+
+    .countdown-timer .time {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .signal-notif-sender {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .signal-notif-ack {
+      color: var(--signal-success);
+      font-size: 13px;
+    }
+
+    .signal-notif-message {
+      padding: 16px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .signal-notif-actions {
+      display: flex;
+      padding: 12px 16px 16px;
+      gap: 12px;
+    }
+
+    .signal-notif-actions .btn {
+      flex: 1;
+      height: 44px;
+    }
+
+    /* ========================================
+       DEMO CONTROLS
+    ======================================== */
+    .demo-controls {
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      z-index: 10001;
+      padding: 4px 6px;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 8px;
+    }
+
+    .demo-btn {
+      padding: 4px 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 4px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .demo-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .screen-label {
+      padding: 4px 8px;
+      background: var(--primary);
+      border-radius: 4px;
+      color: white;
+      font-size: 9px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- ========================================
+         SPLASH SCREEN
+    ======================================== -->
+    <div class="screen active" id="splash">
+      <div class="splash-content">
+        <div class="splash-logo">TSONO</div>
+        <div class="loading-dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <div class="splash-tagline">Ride Together</div>
+      </div>
+    </div>
+
+    <!-- ========================================
+         LOGIN SCREEN
+    ======================================== -->
+    <div class="screen" id="login">
+      <div class="login-header">
+        <div class="logo">TSONO</div>
+        <div class="tagline">Never Ride Alone</div>
+      </div>
+      <div class="login-card">
+        <div class="login-form">
+          <div class="form-group">
+            <label class="label">Email</label>
+            <input type="email" class="input" value="rider@example.com">
+          </div>
+          <div class="form-group">
+            <label class="label">Password</label>
+            <input type="password" class="input" value="password123">
+          </div>
+          <button class="btn btn-primary" id="login-btn">
+            <span class="btn-text">Log In</span>
+          </button>
+          <div class="divider">or</div>
+          <button class="btn btn-outline" id="demo-btn">Try Demo →</button>
+        </div>
+        <div class="login-links">
+          <a href="#">Forgot password?</a>
+          <p>Don't have an account? <a href="#">Sign up</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================
+         DASHBOARD
+    ======================================== -->
+    <div class="screen" id="dashboard">
+      <div class="top-bar">
+        <div class="location">
+          <span>📍</span>
+          <span>Dallas, TX</span>
+        </div>
+        <button class="menu-btn" id="menu-toggle">☰</button>
+      </div>
+
+      <div class="menu-dropdown" id="menu-dropdown">
+        <button class="menu-item" onclick="showScreen('dashboard')">Profile</button>
+        <button class="menu-item" onclick="showScreen('dashboard')">Settings</button>
+        <button class="menu-item" onclick="showScreen('dashboard')">My Rides</button>
+        <div class="menu-divider"></div>
+        <button class="menu-item" onclick="resetDemo()">Log Out</button>
+      </div>
+
+      <div class="map-container" id="map-container">
+        <!-- Road Network SVG -->
+        <svg class="road-network" viewBox="0 0 390 500" preserveAspectRatio="xMidYMid slice">
+          <!-- Secondary roads -->
+          <path class="road-secondary" d="M0,100 L390,100"/>
+          <path class="road-secondary" d="M0,350 L390,350"/>
+          <path class="road-secondary" d="M70,0 L70,500"/>
+          <path class="road-secondary" d="M320,0 L320,500"/>
+          <path class="road-secondary" d="M0,250 L140,250 L180,290 L390,290"/>
+          <!-- Main roads -->
+          <path class="road-main" d="M0,180 L390,180"/>
+          <path class="road-main" d="M195,0 L195,500"/>
+          <path class="road-main" d="M270,0 L270,130 L330,180 L330,500"/>
+        </svg>
+
+        <div class="user-marker">
+          <div class="pulse-ring"></div>
+          <div class="user-arrow">▲</div>
+        </div>
+
+        <div class="rider-marker" style="left: 62%; top: 32%;" onclick="selectRider(0)">
+          <div class="dot">MT</div>
+        </div>
+        <div class="rider-marker" style="left: 28%; top: 52%;" onclick="selectRider(1)">
+          <div class="dot">SK</div>
+        </div>
+        <div class="rider-marker" style="left: 72%; top: 58%;" onclick="selectRider(2)">
+          <div class="dot">JR</div>
+        </div>
+
+        <button class="recenter-btn" onclick="showToast('Map recentered')">⌖</button>
+      </div>
+
+      <div class="bottom-panel" id="bottom-panel">
+        <!-- Drag Handle -->
+        <div class="panel-handle">
+          <div class="handle-bar"></div>
+        </div>
+
+        <!-- Action Buttons Row -->
+        <div class="action-buttons">
+          <button class="btn btn-primary action-btn" onclick="showScreen('create-ride')">+ Create</button>
+          <button class="btn btn-secondary action-btn" onclick="showScreen('join-ride')">Join Ride</button>
+        </div>
+
+        <div class="panel-content">
+          <div class="panel-header">
+            <span class="panel-title">Nearby Riders</span>
+            <span class="rider-count">3 online</span>
+          </div>
+          <div class="rider-list">
+            <div class="rider-item" onclick="selectRider(0); showToast('Mike T. selected');">
+              <div class="rider-info">
+                <span class="rider-name">Mike T.</span>
+                <span class="rider-distance">0.4 mi away</span>
+              </div>
+              <span class="rider-action">→</span>
+            </div>
+            <div class="rider-item" onclick="selectRider(1); showToast('Sarah K. selected');">
+              <div class="rider-info">
+                <span class="rider-name">Sarah K.</span>
+                <span class="rider-distance">0.7 mi away</span>
+              </div>
+              <span class="rider-action">→</span>
+            </div>
+            <div class="rider-item" onclick="selectRider(2); showToast('Jake R. selected');">
+              <div class="rider-info">
+                <span class="rider-name">Jake R.</span>
+                <span class="rider-distance">1.2 mi away</span>
+              </div>
+              <span class="rider-action">→</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================
+         CREATE RIDE SCREEN
+    ======================================== -->
+    <div class="screen" id="create-ride">
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('dashboard')">←</button>
+        <h1>Create Ride</h1>
+      </div>
+      <div class="screen-body">
+        <p class="screen-intro">Start a new group ride and invite others to join you.</p>
+
+        <div class="form-row">
+          <label class="label">Ride Name *</label>
+          <input type="text" class="input" id="ride-name-input" value="Sunday Cruise">
+        </div>
+
+        <div class="form-row">
+          <label class="label">Description</label>
+          <textarea class="input" placeholder="Morning ride to White Rock Lake"></textarea>
+        </div>
+
+        <div class="form-row">
+          <label class="label">Max Riders</label>
+          <div class="counter-input">
+            <button class="counter-btn" onclick="adjustCounter(-1)">−</button>
+            <span class="counter-value" id="counter-value">10</span>
+            <button class="counter-btn" onclick="adjustCounter(1)">+</button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="label">Destination (optional)</label>
+          <input type="text" class="input" value="White Rock Lake">
+        </div>
+      </div>
+      <div class="screen-footer">
+        <button class="btn btn-primary" id="create-ride-btn" onclick="createRide()">Create Ride</button>
+      </div>
+    </div>
+
+    <!-- ========================================
+         RIDE CREATED SUCCESS
+    ======================================== -->
+    <div class="screen" id="ride-created">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">Ride Created!</h2>
+      <p class="success-ride-name" id="created-ride-name">"Sunday Cruise"</p>
+
+      <div class="qr-placeholder">
+        <div class="qr-pattern"></div>
+      </div>
+
+      <div class="join-code-section">
+        <p class="join-code-label">Join Code:</p>
+        <div class="join-code-box">
+          <span class="join-code">ABC123XY</span>
+          <button class="copy-btn" onclick="copyCode()">📋</button>
+        </div>
+      </div>
+
+      <div class="success-buttons">
+        <button class="btn btn-secondary" onclick="showToast('Share dialog opened')">Share Invite</button>
+        <button class="btn btn-primary" onclick="startActiveRide()">Go to Ride →</button>
+      </div>
+
+      <p class="success-meta">Max: <span id="created-max-riders">10</span> riders • Status: Waiting</p>
+    </div>
+
+    <!-- ========================================
+         JOIN RIDE SCREEN
+    ======================================== -->
+    <div class="screen" id="join-ride">
+      <div class="screen-header">
+        <button class="back-btn" onclick="showScreen('dashboard')">←</button>
+        <h1>Join Ride</h1>
+      </div>
+      <div class="screen-body">
+        <p class="screen-intro">Enter the 8-character code to join a ride</p>
+
+        <div class="code-input-wrapper">
+          <input type="text" class="input code-input" id="join-code-input" maxlength="8" placeholder="________" oninput="updateCharCount()">
+        </div>
+        <p class="char-count"><span id="char-count">0</span>/8 characters</p>
+
+        <button class="btn btn-primary" id="join-ride-btn" onclick="joinRide()" disabled>Join Ride</button>
+
+        <div class="divider" style="margin: 24px 0;">or</div>
+
+        <button class="btn btn-secondary" onclick="showToast('Camera access simulated')">📷 Scan QR</button>
+
+        <div class="tip-card">
+          <p>💡 Ask the ride host to share their join code or QR code with you.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================
+         ACTIVE RIDE (Dashboard overlay)
+    ======================================== -->
+    <div class="ride-panel" id="ride-panel">
+      <div class="ride-header" onclick="toggleRidePanel()">
+        <div class="ride-title-section">
+          <h2>Sunday Cruise</h2>
+          <span class="ride-meta">3/10 riders • Active</span>
+        </div>
+        <button class="expand-btn">▲</button>
+      </div>
+      <div class="ride-content">
+        <div class="ride-section">
+          <div class="ride-code-row">
+            <span>Join Code: <span class="ride-code">ABC123XY</span></span>
+            <button class="copy-btn" onclick="copyCode()">📋</button>
+          </div>
+        </div>
+
+        <div class="ride-section">
+          <div class="text-sm" style="color: var(--text-secondary); margin-bottom: 8px;">Members:</div>
+          <div class="members-list">
+            <div class="member-item">
+              <span>• You</span>
+              <span class="host-badge">HOST</span>
+            </div>
+            <div class="member-item">• Mike T.</div>
+            <div class="member-item">• Sarah K.</div>
+          </div>
+        </div>
+
+        <div class="ride-section">
+          <div class="destination-row">
+            <span>📍</span>
+            <span>White Rock Lake</span>
+          </div>
+        </div>
+
+        <div class="ride-section">
+          <div class="text-sm" style="color: var(--text-secondary); margin-bottom: 8px;">Quick Signals:</div>
+          <div class="signal-grid">
+            <button class="signal-btn signal-stop" onclick="sendSignal('stop')">
+              <span class="icon">✋</span>
+              <span class="signal-label">Stop</span>
+            </button>
+            <button class="signal-btn signal-hazard" onclick="sendSignal('hazard')">
+              <span class="icon">⚠️</span>
+              <span class="signal-label">Hazard</span>
+            </button>
+            <button class="signal-btn signal-help" onclick="sendSignal('help')">
+              <span class="icon">🆘</span>
+              <span class="signal-label">Help</span>
+            </button>
+            <button class="signal-btn signal-fuel" onclick="sendSignal('fuel')">
+              <span class="icon">⛽</span>
+              <span class="signal-label">Fuel</span>
+            </button>
+            <button class="signal-btn signal-regroup" onclick="sendSignal('regroup')">
+              <span class="icon">👥</span>
+              <span class="signal-label">Regroup</span>
+            </button>
+            <button class="signal-btn signal-pullover" onclick="sendSignal('pullover')">
+              <span class="icon">🅿️</span>
+              <span class="signal-label">Pull Over</span>
+            </button>
+            <button class="signal-btn signal-slow" onclick="sendSignal('slow')">
+              <span class="icon">🐢</span>
+              <span class="signal-label">Slow</span>
+            </button>
+            <button class="signal-btn signal-speed" onclick="sendSignal('speed')">
+              <span class="icon">🏃</span>
+              <span class="signal-label">Speed Up</span>
+            </button>
+            <button class="signal-btn signal-ok" onclick="sendSignal('ok')">
+              <span class="icon">👍</span>
+              <span class="signal-label">OK</span>
+            </button>
+          </div>
+        </div>
+
+        <button class="btn end-ride-btn" onclick="endRide()">⏹️ End Ride</button>
+      </div>
+    </div>
+
+    <!-- ========================================
+         SIGNAL FAB
+    ======================================== -->
+    <div class="signal-fab-container" id="signal-fab">
+      <div class="fab-sub-buttons" id="fab-sub-buttons">
+        <button class="fab-sub" onclick="sendSignal('help')">🆘</button>
+        <button class="fab-sub" onclick="sendSignal('hazard')">⚠️</button>
+        <button class="fab-sub" onclick="sendSignal('stop')">✋</button>
+      </div>
+      <button class="fab-main" id="fab-main" onclick="toggleFab()">📢</button>
+    </div>
+
+    <!-- ========================================
+         SIGNAL NOTIFICATION
+    ======================================== -->
+    <div class="signal-notification" id="signal-notification">
+      <div class="signal-notif-header hazard" id="signal-notif-header">
+        <div class="signal-notif-title">
+          <span id="signal-notif-icon">⚠️</span>
+          <span id="signal-notif-type">HAZARD</span>
+        </div>
+        <div class="countdown-timer">
+          <svg viewBox="0 0 36 36" width="36" height="36">
+            <circle class="bg" cx="18" cy="18" r="16"/>
+            <circle class="progress" id="countdown-progress" cx="18" cy="18" r="16"/>
+          </svg>
+          <span class="time" id="countdown-time">10</span>
+        </div>
+      </div>
+      <div class="signal-notif-sender">
+        <span>From: <strong id="signal-sender">Mike T.</strong></span>
+        <span class="signal-notif-ack">✓ 2 riders ack'd (67%)</span>
+      </div>
+      <div class="signal-notif-message" id="signal-message">
+        "Road debris ahead, watch out!"
+      </div>
+      <div class="signal-notif-actions">
+        <button class="btn btn-secondary" onclick="dismissSignal()">Dismiss</button>
+        <button class="btn btn-primary" onclick="acknowledgeSignal()">Got it ⚠️</button>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">Copied!</div>
+
+    <!-- Demo Controls -->
+    <div class="demo-controls">
+      <button class="demo-btn" onclick="resetDemo()">🔄 Reset</button>
+      <button class="demo-btn" onclick="toggleTheme()">🌙 Theme</button>
+      <button class="demo-btn" onclick="simulateSignal()">📢 Signal</button>
+      <span class="screen-label" id="screen-label">Splash</span>
+    </div>
+  </div>
+
+  <script src="/public/js/demo.js"></script>
+</body>
+</html>
