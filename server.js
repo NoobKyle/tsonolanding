@@ -93,9 +93,11 @@ if (!fs.existsSync(DATA_DIR)) {
 }
 
 // Initialize data files if they don't exist
-Object.values(DATA_FILES).forEach(file => {
+Object.entries(DATA_FILES).forEach(([key, file]) => {
   if (!fs.existsSync(file)) {
-    fs.writeFileSync(file, '[]', 'utf8');
+    // Analytics needs to be an object, others are arrays
+    const initial = key === 'analytics' ? '{}' : '[]';
+    fs.writeFileSync(file, initial, 'utf8');
   }
 });
 
@@ -103,9 +105,15 @@ Object.values(DATA_FILES).forEach(file => {
 function readData(file) {
   try {
     const data = fs.readFileSync(file, 'utf8');
-    return JSON.parse(data);
+    const parsed = JSON.parse(data);
+    // Analytics should be an object, not an array
+    if (file === DATA_FILES.analytics && Array.isArray(parsed)) {
+      return {};
+    }
+    return parsed;
   } catch (err) {
-    return [];
+    // Return appropriate default based on file type
+    return file === DATA_FILES.analytics ? {} : [];
   }
 }
 
