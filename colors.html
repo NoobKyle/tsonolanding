@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Tsono Color Palette</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0f172a;
+            color: #fff;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, #ff4d94, #6b21a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 2rem 0 1rem;
+        }
+        .palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .swatch {
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .swatch-color {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .swatch-info {
+            padding: 1rem;
+        }
+        .swatch-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .swatch-value {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            font-family: monospace;
+        }
+        .gradient-swatch .swatch-color {
+            height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <h1>TSONO COLOR PALETTE</h1>
+
+    <h2>Primary Colors</h2>
+    <div class="palette">
+        <div class="swatch">
+            <div class="swatch-color" style="background: #ff4d94; color: #fff;">Aa</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Hot Pink</div>
+                <div class="swatch-value">#ff4d94</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background: rgba(255, 77, 148, 0.5); color: #fff;">Aa</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Hot Pink Glow</div>
+                <div class="swatch-value">rgba(255, 77, 148, 0.5)</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background: #6b21a8; color: #fff;">Aa</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Purple</div>
+                <div class="swatch-value">#6b21a8</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background: #4c1d95; color: #fff;">Aa</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Purple Deep</div>
+                <div class="swatch-value">#4c1d95</div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Background Colors</h2>
+    <div class="palette">
+        <div class="swatch">
+            <div class="swatch-color" style="background: #020617; color: #fff;">Aa</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Slate Darker</div>
+                <div class="swatch-value">#020617</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background: #0f172a; color: #fff;">Aa</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Slate Dark</div>
+                <div class="swatch-value">#0f172a</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background: #1a0a2e; color: #fff;">Aa</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Purple Dark</div>
+                <div class="swatch-value">#1a0a2e</div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Text & UI Colors</h2>
+    <div class="palette">
+        <div class="swatch">
+            <div class="swatch-color" style="background: #ffffff; color: #0f172a;">Aa</div>
+            <div class="swatch-info">
+                <div class="swatch-name">White</div>
+                <div class="swatch-value">#ffffff</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background: #94a3b8; color: #0f172a;">Aa</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Gray Light</div>
+                <div class="swatch-value">#94a3b8</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background: #475569; color: #fff;">Aa</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Gray</div>
+                <div class="swatch-value">#475569</div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Glass Effects</h2>
+    <div class="palette">
+        <div class="swatch">
+            <div class="swatch-color" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.2);">Aa</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Glass Background</div>
+                <div class="swatch-value">rgba(255, 255, 255, 0.03)</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background: rgba(255, 255, 255, 0.08);">Aa</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Glass Border</div>
+                <div class="swatch-value">rgba(255, 255, 255, 0.08)</div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Status Colors</h2>
+    <div class="palette">
+        <div class="swatch">
+            <div class="swatch-color" style="background: #10b981; color: #fff;">Aa</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Success</div>
+                <div class="swatch-value">#10b981</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background: #f59e0b; color: #0f172a;">Aa</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Warning</div>
+                <div class="swatch-value">#f59e0b</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-color" style="background: #ef4444; color: #fff;">Aa</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Error</div>
+                <div class="swatch-value">#ef4444</div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Gradients</h2>
+    <div class="palette">
+        <div class="swatch gradient-swatch">
+            <div class="swatch-color" style="background: linear-gradient(135deg, #ff4d94 0%, #6b21a8 100%); color: #fff;">Primary Gradient</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Gradient Primary</div>
+                <div class="swatch-value">#ff4d94 → #6b21a8</div>
+            </div>
+        </div>
+        <div class="swatch gradient-swatch">
+            <div class="swatch-color" style="background: linear-gradient(180deg, #020617 0%, #0f172a 50%, #1a0a2e 100%); color: #fff;">Background Gradient</div>
+            <div class="swatch-info">
+                <div class="swatch-name">Gradient Background</div>
+                <div class="swatch-value">#020617 → #0f172a → #1a0a2e</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

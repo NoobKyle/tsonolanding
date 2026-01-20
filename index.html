@@ -19,6 +19,7 @@
     <meta name="twitter:title" content="Tsono | Ride Together. Never Ride Alone.">
     <meta name="twitter:description" content="The real-time companion app for motorcycle riders. Track your crew, send signals, and never lose the group.">
     <meta name="twitter:image" content="https://tsono.app/og-image.png">
+    <meta name="theme-color" content="#020617">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -47,6 +48,8 @@
 
         html {
             scroll-behavior: smooth;
+            background: #020617;
+            color-scheme: dark;
         }
 
         body {
@@ -273,6 +276,12 @@
 
             .mobile-menu-btn.active span:nth-child(3) {
                 transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            /* Simplify orb animations on mobile to prevent white flash */
+            .orb {
+                filter: blur(60px);
+                animation: none;
             }
         }
 
