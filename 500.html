@@ -6,6 +6,7 @@
     <title>500 - Server Error | Tsono</title>
     <meta name="robots" content="noindex">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="theme-color" content="#020617">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
@@ -20,6 +21,7 @@
             --white: #ffffff;
             --gradient-primary: linear-gradient(135deg, var(--hot-pink) 0%, var(--purple) 100%);
         }
+        html { background: #020617; color-scheme: dark; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
@@ -89,6 +91,15 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             text-decoration: none;
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 1.5rem; }
+            .error-code { font-size: clamp(4rem, 18vw, 6rem); }
+            h1 { font-size: 1.3rem; letter-spacing: 1px; }
+            p { font-size: 1rem; margin-bottom: 1.5rem; }
+            .btn { padding: 0.875rem 1.5rem; font-size: 0.9rem; width: 100%; text-align: center; }
+            .logo { font-size: 1.2rem; top: 1.5rem; left: 1.5rem; }
         }
     </style>
 </head>

@@ -6,6 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Admin Dashboard | Tsono</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="theme-color" content="#020617">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -27,6 +28,11 @@
             --success: #10b981;
             --warning: #f59e0b;
             --error: #ef4444;
+        }
+
+        html {
+            background: #020617;
+            color-scheme: dark;
         }
 
         * {
@@ -581,6 +587,12 @@
 
         /* Responsive */
         @media (max-width: 1024px) {
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -590,7 +602,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 480px) {
             .header {
                 flex-direction: column;
                 gap: 1rem;
@@ -614,7 +626,6 @@
             .tabs {
                 width: 100%;
                 overflow-x: auto;
-                padding-bottom: 0.5rem;
             }
 
             .data-table th,
